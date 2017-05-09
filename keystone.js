@@ -2,7 +2,7 @@ var keystone = require('keystone');
 
 keystone.init({
 
-	'name': 'Iot Admin',
+	'name': 'Kom IOT',
 	'brand': 'Demo',
 
 	'favicon': 'public/logoipb.ico',
