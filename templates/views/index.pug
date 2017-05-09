@@ -1,7 +1,7 @@
 extends ../layouts/default
 
 block content
-	div(style="padding-left: 5vw; padding-right: 5vw;").jumbotron
+	div(style="padding-left: 5vw; padding-right: 5vw;").jumbotron.text-center
 		h2 KOM IOT
 		.lead This site demonstrates common scheme in iot device <a href='http://keystonejs.com', target='_blank'>kom_iot</a>.
 		a(href='https://github.com/akhiyarwaladi/komiotadmin', target='_blank', title='View on GitHub').btn.btn-lg.btn-primary View on GitHub
@@ -13,20 +13,7 @@ block content
 			p This will list all device that connect in servet.
 			p You can sign in using the demo account to view the submitted enquiries.
 			hr
-			h3: a(href='/blog') Blog
-			//- p Simple example blog with posts and categories.
-			p Posts have a key automatically generated from their name, and support short and extended versions of the content.
-			p You can sign in using the demo account to contribute to the blog.
-			hr
-			h3: a(href='/gallery') Gallery
-			p Example of how to set up a page that displays multiple image galleries.
-			p Demonstrates usage of single and multi image fields and their resizing methods.
-			p You can sign in using the demo account to create and manage image galleries, and upload additional images
-			hr
-			h3: a(href='/contact') Enquiries
-			p Simple contact form that validates input and logs enquiries to the database.
-			p You can sign in using the demo account to view the submitted enquiries.
-			hr
+
 			h3 Generating CSVs
 			p For an example of how to download a list in .csv format, see /routes/download/users.js.
 			p It uses the excellent node-csv library.
@@ -44,13 +31,7 @@ block content
 					else
 						a(href='/keystone/signin').btn.btn-default Sign in
 				
-			.panel.panel-default
-				.panel-heading
-					h3.panel-title: a(href='/404') Error Handling
-				.panel-body
-					p The 404 and 500 views demonstrate how to set up error handlers for your application.
-					a(href='/hey-this-isnt-a-valid-url').btn.btn-default Test it
-	
+
 	div(style="margin-top: 60px; padding-left: 10vw; padding-right: 10vw;").jumbotron.text-center
 		h2 We'll handle the back end, you handle the front
 		p KeystoneJS isn't opinionated about how you design or build the front-end of your site. Use jQuery, Angular, React.js with LESS, SASS or css-modules and any node.js template language.
