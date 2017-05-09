@@ -1,0 +1,82 @@
+extends ../layouts/default
+
+block content
+	.page-header
+		h1 Dataset
+
+	.row
+		
+		- var datu = datasets.results[0].sensortype.length // get how many sensor in dataset
+		- var satu = datasets.results[0].data // get one record of data object
+		//- h4= datu
+		//- h4= satu
+
+		- for (var cc = 1; cc <= datu; cc++)
+			//- h4= cc
+			.col-sm-6
+				<div id="#{cc}_container"></div>
+
+block js			
+
+	script.
+		// now we will get property of each data
+		var obj = !{JSON.stringify(datasets)}; // ini bentuknya objek
+		var objData = obj.results[0]; // untuk ambil item dalam array harus dalam bentuk objek, hasil results objek
+		var proper = objData.data;
+		var sublabel = objData.device
+		var count = 1
+		for (var property in proper) { //looping every property
+			console.log(count);
+			console.log(property);
+			var yValues = [];
+
+			for (var i in obj.results){
+				var obj2 = obj.results[i]; // untuk ambil item dalam array harus dalam bentuk objek, hasil results objek
+				var obj3 = obj2.data[property];
+				console.log(obj3);
+				
+				yValues.push(obj3);
+				
+			}
+			var label = property;
+			render = count+"_container"
+			console.log(render);
+			console.log(yValues);
+
+			
+			Highcharts.chart(render, {
+
+			    title: {
+			        text: label
+			    },
+
+			    subtitle: {
+			        text: sublabel
+			    },
+
+			    yAxis: {
+			        title: {
+			            text: 'Sensor Value'
+			        }
+			    },
+			    legend: {
+			        layout: 'vertical',
+			        align: 'right',
+			        verticalAlign: 'middle'
+			    },
+
+			    plotOptions: {
+			        series: {
+			            pointStart: 1
+			        }
+			    },
+
+			    series: [{
+			        name: label,
+			        data: yValues
+
+			    }]
+
+			});
+			count = count + 1
+		}

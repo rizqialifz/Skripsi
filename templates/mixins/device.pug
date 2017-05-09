@@ -1,0 +1,17 @@
+mixin device(device)
+	article(data-ks-editable=editable(user, { list: 'Device', id: device.id })).media
+		.media-left
+			a(href='/blog/device/' + device.key)
+				if device.image.exists
+					img(src=device._.image.fit(80,80)).media-object
+				else
+					img(src="http://placehold.it/80x80").media-object
+					
+		.media-body
+			h3.media-heading
+				a(href='/blog/device/' + device.key)= device.name
+			if device.created_at
+				p.text-muted.text-small
+					if device.created_at
+						time= device._.created_at.format('MMMM Do, YYYY')
+

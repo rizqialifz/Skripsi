@@ -1,0 +1,37 @@
+extends ../layouts/default
+include ../mixins/device
+
+block content
+	.page-header
+		h1 Device
+	.row
+		.col-sm-8
+			if devices.results.length
+				if devices.totalPages > 1
+					.lead.text-muted Showing 
+						strong #{devices.first}
+						|  to 
+						strong #{devices.last}
+						|  of 
+						strong #{devices.total}
+						|  devices
+				else
+					.lead.text-muted Showing #{utils.plural(devices.results.length, '* device')}
+				.blog
+					each device in devices.results
+						+ device(device)
+				if devices.totalPages > 1
+					ul.pagination
+						if devices.previous
+							li: a(href='?page=' + devices.previous): span.glyphicon.glyphicon-chevron-left
+						else
+							li.disabled: a(href='?page=' + 1): span.glyphicon.glyphicon-chevron-left
+						each p, i in devices.pages
+							li(class=devices.currentPage === p ? 'active' : null)
+								a(href='?page=' + (p === '...' ? (i ? devices.totalPages : 1) : p ))= p
+						if devices.next
+							li: a(href='?page=' + devices.next): span.glyphicon.glyphicon-chevron-right
+						else
+							li.disabled: a(href='?page=' + devices.totalPages): span.glyphicon.glyphicon-chevron-right
+
+		.col-sm-4
