@@ -3,15 +3,23 @@ mixin device(device)
 		.media-left
 			a(href='/blog/device/' + device.key)
 				if device.image.exists
-					img(src=device._.image.fit(80,80)).media-object
+					img(src=device._.image.fit(120,120)).media-object
 				else
 					img(src="http://placehold.it/80x80").media-object
 					
 		.media-body
-			h3.media-heading
-				a(href='/blog/device/' + device.key)= device.name
-			if device.created_at
-				p.text-muted.text-small
-					if device.created_at
-						time= device._.created_at.format('MMMM Do, YYYY')
+
+			.small-box.bg-light-blue
+				.inner
+					h4
+						= device.name
+						sup(style='font-size: 20px')
+					p
+						= device._.created_at.format('MMMM Do, YYYY')
+				.icon
+					i.ion.ion-stats-bars
+
+				a.small-box-footer(href='/blog/device/' + device.key)
+					| More info
+					i.fa.fa-arrow-circle-right
 

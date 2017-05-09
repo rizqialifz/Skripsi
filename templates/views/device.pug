@@ -5,7 +5,8 @@ block content
 	.page-header
 		h1 Device
 	.row
-		.col-sm-8
+		.col-sm-6
+
 			if devices.results.length
 				if devices.totalPages > 1
 					.lead.text-muted Showing 
@@ -17,9 +18,11 @@ block content
 						|  devices
 				else
 					.lead.text-muted Showing #{utils.plural(devices.results.length, '* device')}
+
 				.blog
 					each device in devices.results
 						+ device(device)
+
 				if devices.totalPages > 1
 					ul.pagination
 						if devices.previous
@@ -34,4 +37,6 @@ block content
 						else
 							li.disabled: a(href='?page=' + devices.totalPages): span.glyphicon.glyphicon-chevron-right
 
-		.col-sm-4
+		.col-sm-6
+
+

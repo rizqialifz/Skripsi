@@ -14,7 +14,17 @@ block content
 		- for (var cc = 1; cc <= datu; cc++)
 			//- h4= cc
 			.col-sm-6
-				<div id="#{cc}_container"></div>
+				.box.box-solid
+					.box.box-info
+						.box-header
+							h3.box-title Line Chart
+							.box-tools.pull-right
+								button.btn.btn-default.btn-sm(data-widget='collapse')
+									i.fa.fa-minus
+								button.btn.btn-default.btn-sm(data-widget='remove')
+									i.fa.fa-times
+					.box-body
+							<div id="#{cc}_container"></div>
 
 block js			
 
@@ -79,7 +89,11 @@ block js
 			        layout: 'vertical',
 			        align: 'right',
 			        verticalAlign: 'middle'
+			        
 			    },
+				credits: {
+					enabled: false
+				},
 
 			    series: [{
 			        name: label,

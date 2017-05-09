@@ -3,12 +3,18 @@ mixin sensornode(sensornode)
 		.media-left
 			a(href='/blog/sensornode/' + sensornode.key)
 
-				img(src="http://placehold.it/80x80").media-object
+				img(src="http://placehold.it/120x120").media-object
 		.media-body
-			h3.media-heading
-				a(href='/blog/sensornode/' + sensornode.key)= sensornode.name
-			if sensornode.created_at
-				p.text-muted.text-small
-					if sensornode.created_at
-						time= sensornode._.created_at.format('MMMM Do, YYYY')
+
+			.small-box.bg-purple
+					.inner
+						h4
+							= sensornode.name
+						p
+							= sensornode._.created_at.format('MMMM Do, YYYY')
+					.icon
+						i.ion.ion-bag
+					a.small-box-footer(href='/blog/sensornode/' + sensornode.key)
+						| More info
+						i.fa.fa-arrow-circle-right
 

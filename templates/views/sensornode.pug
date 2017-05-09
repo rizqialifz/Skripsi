@@ -5,7 +5,7 @@ block content
 	.page-header
 		h1 Device
 	.row
-		.col-sm-8
+		.col-sm-6
 			if sensornodes.results.length
 				if sensornodes.totalPages > 1
 					.lead.text-muted Showing 
@@ -34,4 +34,4 @@ block content
 						else
 							li.disabled: a(href='?page=' + sensornodes.totalPages): span.glyphicon.glyphicon-chevron-right
 
-		.col-sm-4
+		.col-sm-6
