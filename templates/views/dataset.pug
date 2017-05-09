@@ -54,6 +54,11 @@ block js
 				yValues.push(obj3);
 				
 			}
+			//we need to reverse list because data we get nor sort by date
+			xValues.reverse();
+			yValues.reverse();
+
+			//assign label and sublabel chart
 			var label = property;
 			var sublabel = objData.device
 			render = count+"_container"
@@ -86,10 +91,10 @@ block js
 			        }
 			    },
 			    legend: {
-			        layout: 'vertical',
-			        align: 'right',
-			        verticalAlign: 'middle'
-			        
+			        //layout: 'vertical',
+			        //align: 'right',
+			        //verticalAlign: 'middle'
+			        enabled: false
 			    },
 				credits: {
 					enabled: false
