@@ -23,28 +23,39 @@ block js
 		var obj = !{JSON.stringify(datasets)}; // ini bentuknya objek
 		var objData = obj.results[0]; // untuk ambil item dalam array harus dalam bentuk objek, hasil results objek
 		var proper = objData.data;
-		var sublabel = objData.device
+		
 		var count = 1
 		for (var property in proper) { //looping every property
 			console.log(count);
 			console.log(property);
+			var xValues = [];
 			var yValues = [];
 
 			for (var i in obj.results){
 				var obj2 = obj.results[i]; // untuk ambil item dalam array harus dalam bentuk objek, hasil results objek
+				var timee = obj2.created_at
+				var fTimee = moment(timee).format('h:mm:ss a');
 				var obj3 = obj2.data[property];
+
+				console.log(fTimee);
 				console.log(obj3);
-				
+
+				xValues.push(fTimee)
 				yValues.push(obj3);
 				
 			}
 			var label = property;
+			var sublabel = objData.device
 			render = count+"_container"
 			console.log(render);
 			console.log(yValues);
 
 			
 			Highcharts.chart(render, {
+
+				chart: {
+					type: 'spline'
+				},
 
 			    title: {
 			        text: label
@@ -53,6 +64,11 @@ block js
 			    subtitle: {
 			        text: sublabel
 			    },
+
+				xAxis: {
+					type: 'datetime',
+					categories: xValues
+				},
 
 			    yAxis: {
 			        title: {
@@ -63,12 +79,6 @@ block js
 			        layout: 'vertical',
 			        align: 'right',
 			        verticalAlign: 'middle'
-			    },
-
-			    plotOptions: {
-			        series: {
-			            pointStart: 1
-			        }
 			    },
 
 			    series: [{
