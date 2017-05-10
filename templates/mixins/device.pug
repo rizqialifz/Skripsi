@@ -1,7 +1,7 @@
 mixin device(device)
 	article(data-ks-editable=editable(user, { list: 'Device', id: device.id })).media
 		.media-left
-			a(href='/blog/device/' + device.key)
+			a(href='/sensornode/' + device.key)
 				if device.image.exists
 					img(src=device._.image.fit(120,120)).media-object
 				else
@@ -19,7 +19,7 @@ mixin device(device)
 				.icon
 					i.ion.ion-stats-bars
 
-				a.small-box-footer(href='/blog/device/' + device.key)
+				a.small-box-footer(href='/sensornode/' + device.key)
 					| More info
 					i.fa.fa-arrow-circle-right
 

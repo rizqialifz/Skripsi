@@ -1,6 +1,6 @@
 var keystone	= require('keystone');
-var Device		= keystone.list('Device');
 var SensorNode 	= keystone.list('SensorNode');
+var Dataset		= keystone.list('Dataset');
 
 exports = module.exports = function (req, res) {
 
@@ -8,21 +8,21 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals;
 
 	// Init locals
-	locals.section = 'device';
+	locals.section = 'sensornode';
 	locals.filters = {
-		device: req.params.device,
+		sensornode: req.params.sensornode,
 	};
 
 	
 	// Load the current device
 	view.on('init', function (next) {
 
-		var q = Device.model.findOne({
-			key: locals.filters.device,
+		var q = SensorNode.model.findOne({
+			_id: locals.filters.sensornode,
 		})
 
 		q.exec(function (err, result) {
-			locals.device = result;
+			locals.sensornode = result;
 			next(err);
 		});
 
@@ -30,18 +30,18 @@ exports = module.exports = function (req, res) {
 
 	view.on('init', function (next) {
 
-		SensorNode.model.find()
-			.where('device', locals.device)
-			.exec(function (err, sensornodes) {
+		Dataset.model.find()
+			.where('sensornode', locals.sensornode)
+			.exec(function (err, datasets) {
 				if (err) return res.err(err);
-				if (!sensornodes) return res.notfound('Sensor node not found');
-				locals.sensornodes = sensornodes;
+				if (!datasets) return res.notfound('Sensor node not found');
+				locals.datasets = datasets;
 				next();
 			});
 
 	});
 
 	// Render the view
-	view.render('sensornode');
+	view.render('data');
 
 }

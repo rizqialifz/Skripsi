@@ -37,10 +37,12 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
 	app.get('/blog/:category?', routes.views.blog);
 	app.all('/blog/post/:post', routes.views.post);
+	app.all('/sensornode/:device', routes.views.sensornode);
+	app.all('/data/:sensornode', routes.views.data);
 	app.get('/gallery', routes.views.gallery);
 	app.all('/contact', routes.views.contact);
 	app.all('/device', routes.views.device);
-	app.all('/sensornode', routes.views.sensornode);
+	//app.all('/sensornode', routes.views.sensornode);
 	app.all('/dataset', routes.views.dataset);
 
 	app.get('/api/post/list', keystone.middleware.api, routes.api.posts.list);

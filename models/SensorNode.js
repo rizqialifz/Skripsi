@@ -7,6 +7,7 @@ var Types = keystone.Field.Types;
  */
 
 var SensorNode = new keystone.List('SensorNode', {
+	
 	label: 'SensorNodes',
 });
 

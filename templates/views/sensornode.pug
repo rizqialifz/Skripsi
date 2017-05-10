@@ -6,6 +6,11 @@ block content
 		h1 Device
 	.row
 		.col-sm-6
+
+			each node in sensornodes
+				h3= node._id
+				+sensornode(node)
+		//-	
 			if sensornodes.results.length
 				if sensornodes.totalPages > 1
 					.lead.text-muted Showing 
