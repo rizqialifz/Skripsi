@@ -3,12 +3,12 @@ extends ../layouts/default
 include ../mixins/sensornode
 block content
 	.page-header
-		h1 Device
+		h1 Sensor Node
 	.row
 		.col-sm-6
 
 			each node in sensornodes
-				h3= node._id
+				//- h3= node._id
 				+sensornode(node)
 		//-	
 			if sensornodes.results.length

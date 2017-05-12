@@ -78,6 +78,8 @@ exports = module.exports = function (app) {
 	app.all('/api/dataset/:id/update', keystone.middleware.api, routes.api.datasets.update);
 	app.get('/api/dataset/:id/remove', keystone.middleware.api, routes.api.datasets.remove);
 
+	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
+
 	// Downloads
 	app.get('/download/users', routes.download.users);
 
