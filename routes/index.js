@@ -31,6 +31,16 @@ var routes = {
 	api: importRoutes('./api')
 };
 
+function checkAPIKey(req, res, next) {
+  // you would have the key in an env variable or load it from
+  // your database or something.
+  
+  res.header('Access-Control-Allow-Headers', keystone.get('api allow headers') || 'Content-Type, Authorization');
+  var token = req.headers['x-snow-token']
+  if (token === "SECRET_API_KEY") return next();
+  	return res.status(403).json({ 'error': 'no access' });
+}
+
 exports = module.exports = function (app) {
 
 	// Views
@@ -45,11 +55,15 @@ exports = module.exports = function (app) {
 	//app.all('/sensornode', routes.views.sensornode);
 	app.all('/dataset', routes.views.dataset);
 
+	//app.all('/api*', keystone.middleware.api, routes.api.keyAuth);
+	app.all('/api*', checkAPIKey);
+
 	app.get('/api/post/list', keystone.middleware.api, routes.api.posts.list);
 	app.all('/api/post/create', keystone.middleware.api, routes.api.posts.create);
 	app.get('/api/post/:id', keystone.middleware.api, routes.api.posts.get);
 	app.all('/api/post/:id/update', keystone.middleware.api, routes.api.posts.update);
 	app.get('/api/post/:id/remove', keystone.middleware.api, routes.api.posts.remove);
+
 
 	app.get('/api/comment/list', keystone.middleware.api, routes.api.comments.list);
 	app.all('/api/comment/create', keystone.middleware.api, routes.api.comments.create);
@@ -77,6 +91,7 @@ exports = module.exports = function (app) {
 	app.get('/api/dataset/:id', keystone.middleware.api, routes.api.datasets.get);
 	app.all('/api/dataset/:id/update', keystone.middleware.api, routes.api.datasets.update);
 	app.get('/api/dataset/:id/remove', keystone.middleware.api, routes.api.datasets.remove);
+
 
 	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
 
