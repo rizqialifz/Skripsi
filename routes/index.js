@@ -34,11 +34,14 @@ var routes = {
 function checkAPIKey(req, res, next) {
   // you would have the key in an env variable or load it from
   // your database or something.
-  
+
   res.header('Access-Control-Allow-Headers', keystone.get('api allow headers') || 'Content-Type, Authorization');
   var token = req.headers['x-snow-token']
   if (token === "SECRET_API_KEY") return next();
-  	return res.status(403).json({ 'error': 'no access' });
+  	return res.status(403).json({ 
+  		'error': 'true',
+  		'message': 'missing apiKey header'
+  	});
 }
 
 exports = module.exports = function (app) {

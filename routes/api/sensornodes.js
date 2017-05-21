@@ -12,6 +12,7 @@ exports.list = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		
 		res.apiResponse({
+			error: false,
 			sensornodes: items
 		});
 		
@@ -28,6 +29,7 @@ exports.get = function(req, res) {
 		if (!item) return res.apiError('not found');
 		
 		res.apiResponse({
+			error: false,
 			sensornode: item
 		});
 		
@@ -63,13 +65,15 @@ exports.update = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 		
-		var data = (req.method == 'POST') ? req.body : req.query;
+		var data = (req.method == 'PUT') ? req.body : req.query;
 		
 		item.getUpdateHandler(req).process(data, function(err) {
 			
 			if (err) return res.apiError('create error', err);
 			
 			res.apiResponse({
+				error: false,
+				message: "success update",
 				sensornode: item
 			});
 			

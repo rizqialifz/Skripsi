@@ -12,6 +12,7 @@ exports.list = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		
 		res.apiResponse({
+			error: false,
 			datasets: items
 		});
 		
@@ -28,6 +29,7 @@ exports.get = function(req, res) {
 		if (!item) return res.apiError('not found');
 		
 		res.apiResponse({
+			error: false,
 			dataset: item
 		});
 		
