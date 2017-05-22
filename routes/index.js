@@ -85,6 +85,7 @@ exports = module.exports = function (app) {
 	app.get('/api/sensornode/list', keystone.middleware.api, routes.api.sensornodes.list);
 	app.all('/api/sensornode/create', keystone.middleware.api, routes.api.sensornodes.create);
 	app.get('/api/sensornode/:id', keystone.middleware.api, routes.api.sensornodes.get);
+	app.get('/api/sensornodes/:id', keystone.middleware.api, routes.api.sensornodes.gets);
 	app.all('/api/sensornode/:id/update', keystone.middleware.api, routes.api.sensornodes.update);
 	app.get('/api/sensornode/:id/remove', keystone.middleware.api, routes.api.sensornodes.remove);
 

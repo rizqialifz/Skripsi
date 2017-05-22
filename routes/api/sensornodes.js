@@ -36,6 +36,20 @@ exports.get = function(req, res) {
 	});
 }
 
+exports.gets = function(req, res) {
+	SensorNode.model.findById(req.params.id).exec(function(err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+		
+		res.apiResponse({
+			error: false,
+			sensornode: item
+		});
+		
+	});
+}
+
 
 /**
  * Create a Post

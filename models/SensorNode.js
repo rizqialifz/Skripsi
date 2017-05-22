@@ -12,8 +12,9 @@ SensorNode.add({
 	name: { type: String, required: true },
 	image: { type: Types.CloudinaryImage },
 	miconType: { type: Types.Select, options: 'Arduino Uno, Arduino Leonardo, Arduino Mega'},
-	setPoint: { type: Number},
-	opTime: { type: Number},
+	setPoint: { type: Number },
+	opTime: { type: Number },
+	status: { type: Number },
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
 });
 

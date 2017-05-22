@@ -9,6 +9,37 @@ block content
 			
 	.row
 		.col-sm-8
+				
+			.info-box
+				span.info-box-icon.bg-green
+					i.fa.fa-flag-o
+
+				.info-box-content
+					span.info-box-text
+						h4= "Device"
+					span.info-box-number
+						= devices.length
+
+			.info-box
+				span.info-box-icon.bg-yellow
+					i.fa.fa-files-o
+
+				.info-box-content
+					span.info-box-text
+						h4= "Sensor Node"
+					span.info-box-number
+						= sensornodes.length
+
+			.info-box
+				span.info-box-icon.bg-red
+					i.fa.fa-star-o
+
+				.info-box-content
+					span.info-box-text
+						h4= "Dataset"
+					span.info-box-number
+						= datasets.length
+
 			h3: a(href='/device') Device
 			p This will list all device that connect in servet.
 			p You can sign in using the demo account to view the submitted enquiries.
