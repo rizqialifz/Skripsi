@@ -1,20 +1,28 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[9]:
 
 from pymongo import MongoClient
 from flask import Flask,jsonify,json,request
 from bson.objectid import ObjectId
 import pandas as pd
+import sys
 client = MongoClient()
+
+
+# In[ ]:
+
+lines = sys.stdin.readlines()
+lines=lines[0]
+lines = lines.replace('\n','')
 
 
 # In[2]:
 
 db = client['keystone-demo']
 collection = db.datasets
-data = collection.find({"sensornode": ObjectId("590e00f72476bf2dbca3e394")})
+data = collection.find({"sensornode": ObjectId(lines)})
 
 
 # In[3]:

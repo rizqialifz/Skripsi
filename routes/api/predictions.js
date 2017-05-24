@@ -2,13 +2,15 @@ var async = require('async'),
 keystone = require('keystone');
 
 
-
 exports.get = function(req, res) {
 	var myPythonScriptPath = 'predictMongo.py';
+	data = (req.method == 'POST') ? req.body : req.query;
+	console.log(data.idnode)
 
 	// Use python shell
 	var PythonShell = require('python-shell');
 	var pyshell = new PythonShell(myPythonScriptPath);
+	pyshell.send(data.idnode)
 
 	pyshell.on('message', function (message) {
 	    // received a message sent from the Python script (a simple "print" statement)
@@ -18,7 +20,6 @@ exports.get = function(req, res) {
 	    resi.pop();
 	    console.log(resi);
 	    var dict = []; // create an empty array
-
 
 		for (var i = 0; i < resi.length; i++) {
 			dict.push({
@@ -39,7 +40,6 @@ exports.get = function(req, res) {
 	        throw err;
 	    };
 	    console.log('finished');
-	    
 
 	});
 
