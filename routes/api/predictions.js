@@ -13,7 +13,10 @@ exports.get = function(req, res) {
 	pyshell.on('message', function (message) {
 	    // received a message sent from the Python script (a simple "print" statement)
 	    //console.log(message);
-	    var resi = message.split(" ");
+	    message = message.replace('/r','');
+	    var resi = message.split(",");
+	    resi.pop();
+	    console.log(resi);
 	    var dict = []; // create an empty array
 
 

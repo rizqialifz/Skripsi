@@ -45,23 +45,24 @@ ts["humidity"] = ts["humidity"].astype("float")
 # In[6]:
 
 from statsmodels.tsa.arima_model import ARIMA
-
-
-# In[7]:
-
 model = ARIMA(ts, order=(1, 0, 0)) 
 results_AR = model.fit(disp=-1)
-
-
-# In[8]:
 
 #make prediction 5 values ahead
 pred = results_AR.predict((ts.shape[0]-1), (ts.shape[0]+9), dynamic=True)
 predValue = list(pred)
 
 
-# In[9]:
+# In[7]:
 
+'''
 for i in predValue:
-    print(i),
+    print i,
+'''
+
+
+# In[8]:
+
+lah = ','.join(map(str,predValue))
+print lah
 
