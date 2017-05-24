@@ -7,11 +7,10 @@ var SensorNode 	= keystone.list('SensorNode');
 exports = module.exports = function (req, res) {
 
 	var view = new keystone.View(req, res);
-
 	var locals = res.locals;
 
 	// Init locals
-	locals.section = 'index';
+	locals.section = 'home';
 	locals.devices = [];
 	locals.sensornodes = [];
 	locals.datasets = [];
@@ -19,18 +18,21 @@ exports = module.exports = function (req, res) {
 	// Load the devices
 	view.on('init', function (next) {
 
-		Device.model.find(function(err, items) {
-			locals.devices = items
+		Device.model.find(function(err1, items1) {
+			locals.devices = items1
+
 
 		});
 
-		SensorNode.model.find(function(err, items) {
-			locals.sensornodes = items
+		SensorNode.model.find(function(err2, items2) {
+			locals.sensornodes = items2
+			
 
 		});
-		Dataset.model.find(function(err, items) {
-			locals.datasets = items
-			next(err);	
+		
+		Dataset.model.find(function(err3, items3) {
+			locals.datasets = items3
+			next(err3);	
 		});
 
 	});

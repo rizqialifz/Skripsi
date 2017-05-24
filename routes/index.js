@@ -98,6 +98,7 @@ exports = module.exports = function (app) {
 
 
 	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
+	app.get('/api/prediction/get', keystone.middleware.api, routes.api.predictions.get)
 
 	// Downloads
 	app.get('/download/users', routes.download.users);
