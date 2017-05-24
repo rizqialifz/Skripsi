@@ -1,11 +1,8 @@
 var async = require('async'),
-	keystone = require('keystone');
+keystone = require('keystone');
 
 var SensorNode = keystone.list('SensorNode');
 
-/**
- * List Posts
- */
 exports.list = function(req, res) {
 	SensorNode.model.find(function(err, items) {
 		
@@ -19,9 +16,7 @@ exports.list = function(req, res) {
 	});
 }
 
-/**
- * Get Post by ID
- */
+
 exports.get = function(req, res) {
 	SensorNode.model.find({"device": req.params.id}).exec(function(err, item) {
 		
@@ -51,9 +46,7 @@ exports.gets = function(req, res) {
 }
 
 
-/**
- * Create a Post
- */
+
 exports.create = function(req, res) {
 	
 	var item = new Post.model(),
@@ -70,9 +63,6 @@ exports.create = function(req, res) {
 	});
 }
 
-/**
- * Get Post by ID
- */
 exports.update = function(req, res) {
 	SensorNode.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -96,9 +86,7 @@ exports.update = function(req, res) {
 	});
 }
 
-/**
- * Delete Post by ID
- */
+
 exports.remove = function(req, res) {
 	SensorNode.model.findById(req.params.id).exec(function (err, item) {
 		

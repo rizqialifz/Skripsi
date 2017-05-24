@@ -1,6 +1,6 @@
 var async = require('async'),
 keystone = require('keystone');
-var myString;
+
 
 
 exports.get = function(req, res) {
@@ -12,8 +12,22 @@ exports.get = function(req, res) {
 
 	pyshell.on('message', function (message) {
 	    // received a message sent from the Python script (a simple "print" statement)
-	    myString = message
-	    console.log(message);
+	    //console.log(message);
+	    var resi = message.split(" ");
+	    var dict = []; // create an empty array
+
+
+		for (var i = 0; i < resi.length; i++) {
+			dict.push({
+				key: "senval",
+				value: resi[i]
+			});
+			
+		}
+	    console.log(dict);
+		res.apiResponse({
+			prediction: dict
+		});
 	});
 
 	// end the input stream and allow the process to exit
@@ -21,14 +35,12 @@ exports.get = function(req, res) {
 	    if (err){
 	        throw err;
 	    };
-
+	    console.log('finished');
 	    
+
 	});
-		
-	var li = JSON.stringify(myString)
-	console.log(myString);
-	res.apiResponse({
-		prediction: li
-	});
+
+	
+
 
 }

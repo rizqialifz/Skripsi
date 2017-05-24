@@ -1,5 +1,5 @@
 var async = require('async'),
-	keystone = require('keystone');
+keystone = require('keystone');
 
 var Device = keystone.list('Device');
 
