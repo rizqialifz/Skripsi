@@ -22,7 +22,8 @@ exports.signin = function (req, res) {
         success: true,
         session: true,
         date: new Date().getTime(),
-        userId: user.id
+        userId: user.id,
+		token: "SECRET_API_KEY"
       });
       
     }, function(err) {
