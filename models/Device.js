@@ -6,9 +6,11 @@ var Device = new keystone.List('Device', {
 });
 
 Device.add({
+
 	name: { type: String, required: true },
 	image: { type: Types.CloudinaryImage },
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
+	
 });
 
 Device.relationship({ path: 'sensornodes', ref: 'SensorNode', refPath: 'device' });

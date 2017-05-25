@@ -3,7 +3,7 @@ var keystone = require('keystone');
 keystone.init({
 
 	'name': 'Kom IOT',
-	'brand': 'Demo',
+	'brand': 'Panel',
 
 	'favicon': 'public/logoipb.ico',
 	'less': 'public',
@@ -45,9 +45,9 @@ keystone.set('locals', {
 keystone.set('routes', require('./routes'));
 
 keystone.set('nav', {
-	//'devices': 'devices',
-	//'sensornodes': 'sensornodes',
-	//'datasets': 'datasets'
+
+	'Manage': ['devices', 'sensor-nodes', 'datasets', 'sensor-types'],
+	'User': ['users'],
 	//'posts': ['posts', 'post-comments', 'post-categories'],
 	//'galleries': 'galleries',
 	//'enquiries': 'enquiries',

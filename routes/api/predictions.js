@@ -1,12 +1,10 @@
 var async = require('async'),
 keystone = require('keystone');
 
-
-
 exports.get = function(req, res) {
-	//get post body parameter
+	//get all post body parameter 
 	data = (req.method == 'POST') ? req.body : req.query;
-	console.log(data.idnode)
+	//console.log(data.idnode)
 
 	// Use python shell
 	var PythonShell = require('python-shell');
@@ -17,15 +15,14 @@ exports.get = function(req, res) {
 	// begin chage data on message string
 	pyshell.on('message', function (message) {
 	    // received a message sent from the Python script (a simple "print" statement)
-
+	    // split print in python by ,
 	    var resi = message.split(",");
 	    // pop last data because contain "\r", dont know how to handle
 	    resi.pop();
-	    console.log(resi);
+	    //console.log(resi);
 
 	    // make dictionary to story prediction data
 		var dict = []; 
-
 
 		for (var i = 0; i < resi.length; i++) {
 			dict.push({
@@ -34,12 +31,11 @@ exports.get = function(req, res) {
 			});
 			
 		}
-	    console.log(dict);
+	    //console.log(dict);
 	   	// send response as api
 		res.apiResponse({
 			prediction: dict
 		});
-
 
 	});
 
@@ -49,7 +45,7 @@ exports.get = function(req, res) {
 	        throw err;
 	    };
 
-	    console.log('finished predict data');
+	    //console.log('finished predict data');
 	});
 
 }

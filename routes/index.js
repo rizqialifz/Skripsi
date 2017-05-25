@@ -9,7 +9,7 @@ keystone.pre('routes', function (req, res, next) {
 		//{ label: 'Gallery', key: 'gallery', href: '/gallery' },
 		//{ label: 'Contact', key: 'contact', href: '/contact' },
 		{ label: 'Device', key: 'device', href: '/device' },
-		{ label: 'SensorNode', key: 'sensornode', href: '/sensornode' },
+		{ label: 'SensorNode', key: 'node', href: '/node' },
 		{ label: 'Dataset', key: 'dataset', href: '/dataset' },
 	];
 	res.locals.user = req.user;
@@ -39,8 +39,10 @@ function checkAPIKey(req, res, next) {
   var token = req.headers['x-snow-token']
   if (token === "SECRET_API_KEY") return next();
   	return res.status(403).json({ 
+
   		'error': 'true',
   		'message': 'missing apiKey header'
+  		
   	});
 }
 
@@ -50,13 +52,17 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
 	app.get('/blog/:category?', routes.views.blog);
 	app.all('/blog/post/:post', routes.views.post);
-	app.all('/sensornode/:device', routes.views.sensornode);
-	app.all('/data/:sensornode', routes.views.data);
 	app.get('/gallery', routes.views.gallery);
 	app.all('/contact', routes.views.contact);
+
+	// single to view all
 	app.all('/device', routes.views.device);
-	//app.all('/sensornode', routes.views.sensornode);
+	app.all('/node', routes.views.nodes);
 	app.all('/dataset', routes.views.dataset);
+
+	// view by id
+	app.all('/sensornode/:device', routes.views.sensornode);
+	app.all('/data/:sensornode', routes.views.data);
 
 	app.all('/api*', checkAPIKey);
 	app.get('/api/post/list', keystone.middleware.api, routes.api.posts.list);
