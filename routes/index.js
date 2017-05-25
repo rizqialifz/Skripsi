@@ -58,9 +58,7 @@ exports = module.exports = function (app) {
 	//app.all('/sensornode', routes.views.sensornode);
 	app.all('/dataset', routes.views.dataset);
 
-	//app.all('/api*', keystone.middleware.api, routes.api.keyAuth);
 	app.all('/api*', checkAPIKey);
-
 	app.get('/api/post/list', keystone.middleware.api, routes.api.posts.list);
 	app.all('/api/post/create', keystone.middleware.api, routes.api.posts.create);
 	app.get('/api/post/:id', keystone.middleware.api, routes.api.posts.get);
@@ -98,7 +96,10 @@ exports = module.exports = function (app) {
 
 
 	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
-	app.all('/api/prediction/get', keystone.middleware.api, routes.api.predictions.get)
+	app.all('/api/prediction/get', keystone.middleware.api, routes.api.predictions.get);
+
+	app.all('/api/signin', keystone.middleware.api, routes.api.authenticate.signin);
+	app.all('/api/signout', keystone.middleware.api, routes.api.authenticate.signout);
 
 	// Downloads
 	app.get('/download/users', routes.download.users);
