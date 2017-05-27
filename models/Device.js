@@ -10,9 +10,11 @@ Device.add({
 	name: { type: String, required: true },
 	image: { type: Types.CloudinaryImage },
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
+	user: { type: Types.Relationship, initial: true, ref: 'User', index: true },
 	
 });
 
+
 Device.relationship({ path: 'sensornodes', ref: 'SensorNode', refPath: 'device' });
-Device.defaultColumns = 'name, image, created_at';
+Device.defaultColumns = 'name, image, created_at, user';
 Device.register();

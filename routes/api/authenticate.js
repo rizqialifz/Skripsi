@@ -24,7 +24,7 @@ exports.signin = function (req, res) {
 				session: true,
 				date: new Date().getTime(),
 				userId: user.id,
-				username: "admin",
+				username: user.email,
 				apiKey: "SECRET_API_KEY"
 			});
 		  

@@ -82,6 +82,7 @@ exports = module.exports = function (app) {
 	app.get('/api/device/list', keystone.middleware.api, routes.api.devices.list);
 	app.all('/api/device/create', keystone.middleware.api, routes.api.devices.create);
 	app.get('/api/device/:id', keystone.middleware.api, routes.api.devices.get);
+	app.get('/api/devices/:id', keystone.middleware.api, routes.api.devices.gets);
 	app.all('/api/device/:id/update', keystone.middleware.api, routes.api.devices.update);
 	app.get('/api/device/:id/remove', keystone.middleware.api, routes.api.devices.remove);
 
