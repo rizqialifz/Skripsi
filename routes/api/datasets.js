@@ -93,6 +93,8 @@ exports.remove = function(req, res) {
 			if (err) return res.apiError('database error', err);
 			
 			return res.apiResponse({
+				error: false,
+				message: "success remove",
 				success: true
 			});
 		});

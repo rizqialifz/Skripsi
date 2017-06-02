@@ -50,12 +50,9 @@ exports.gets = function(req, res) {
 }
 
 
-/**
- * Create a Post
- */
 exports.create = function(req, res) {
 	
-	var item = new Post.model(),
+	var item = new Device.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
 	
 	item.getUpdateHandler(req).process(data, function(err) {
@@ -63,15 +60,15 @@ exports.create = function(req, res) {
 		if (err) return res.apiError('error', err);
 		
 		res.apiResponse({
+			error: false,
+			message: "success create device",
 			device: item
 		});
 		
 	});
 }
 
-/**
- * Get Post by ID
- */
+
 exports.update = function(req, res) {
 	Devicee.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -93,9 +90,7 @@ exports.update = function(req, res) {
 	});
 }
 
-/**
- * Delete Post by ID
- */
+
 exports.remove = function(req, res) {
 	Device.model.findById(req.params.id).exec(function (err, item) {
 		
@@ -106,6 +101,9 @@ exports.remove = function(req, res) {
 			if (err) return res.apiError('database error', err);
 			
 			return res.apiResponse({
+
+				error: false,
+				message: "success remove",
 				success: true
 			});
 		});

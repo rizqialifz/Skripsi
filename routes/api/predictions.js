@@ -12,7 +12,6 @@ exports.get = function(req, res) {
 	// send parameter post to python script
 	pyshell.send(data.idnode)
 
-
 	// begin chage data on message string
 	pyshell.on('message', function (message) {
 	    // received a message sent from the Python script (a simple "print" statement)

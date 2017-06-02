@@ -49,7 +49,7 @@ exports.gets = function(req, res) {
 
 exports.create = function(req, res) {
 	
-	var item = new Post.model(),
+	var item = new SensorNode.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
 	
 	item.getUpdateHandler(req).process(data, function(err) {
@@ -57,6 +57,8 @@ exports.create = function(req, res) {
 		if (err) return res.apiError('error', err);
 		
 		res.apiResponse({
+			error: false,
+			message: "success create sensornode",
 			sensornode: item
 		});
 		
@@ -97,6 +99,8 @@ exports.remove = function(req, res) {
 			if (err) return res.apiError('database error', err);
 			
 			return res.apiResponse({
+				error: false,
+				message: "success remove",
 				success: true
 			});
 		});

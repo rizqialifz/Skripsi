@@ -84,7 +84,7 @@ exports = module.exports = function (app) {
 	app.get('/api/device/:id', keystone.middleware.api, routes.api.devices.get);
 	app.get('/api/devices/:id', keystone.middleware.api, routes.api.devices.gets);
 	app.all('/api/device/:id/update', keystone.middleware.api, routes.api.devices.update);
-	app.get('/api/device/:id/remove', keystone.middleware.api, routes.api.devices.remove);
+	app.all('/api/device/:id/remove', keystone.middleware.api, routes.api.devices.remove);
 
 
 	app.get('/api/sensornode/list', keystone.middleware.api, routes.api.sensornodes.list);
@@ -92,14 +92,14 @@ exports = module.exports = function (app) {
 	app.get('/api/sensornode/:id', keystone.middleware.api, routes.api.sensornodes.get);
 	app.get('/api/sensornodes/:id', keystone.middleware.api, routes.api.sensornodes.gets);
 	app.all('/api/sensornode/:id/update', keystone.middleware.api, routes.api.sensornodes.update);
-	app.get('/api/sensornode/:id/remove', keystone.middleware.api, routes.api.sensornodes.remove);
+	app.all('/api/sensornode/:id/remove', keystone.middleware.api, routes.api.sensornodes.remove);
 
 
 	app.get('/api/dataset/list', keystone.middleware.api, routes.api.datasets.list);
 	app.all('/api/dataset/create', keystone.middleware.api, routes.api.datasets.create);
 	app.get('/api/dataset/:id', keystone.middleware.api, routes.api.datasets.get);
 	app.all('/api/dataset/:id/update', keystone.middleware.api, routes.api.datasets.update);
-	app.get('/api/dataset/:id/remove', keystone.middleware.api, routes.api.datasets.remove);
+	app.all('/api/dataset/:id/remove', keystone.middleware.api, routes.api.datasets.remove);
 
 
 	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
