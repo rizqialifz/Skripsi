@@ -16,7 +16,6 @@ exports.list = function(req, res) {
 	});
 }
 
-
 exports.get = function(req, res) {
 	SensorNode.model.find({"device": req.params.id}).exec(function(err, item) {
 		
@@ -44,8 +43,6 @@ exports.gets = function(req, res) {
 		
 	});
 }
-
-
 
 exports.create = function(req, res) {
 	
