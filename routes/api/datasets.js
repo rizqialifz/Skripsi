@@ -18,12 +18,11 @@ exports.list = function(req, res) {
 		
 	});
 }
-
 /**
  * Get Post by ID
  */
 exports.get = function(req, res) {
-	Dataset.model.find({"sensornode": req.params.id}).exec(function(err, item) {
+	Dataset.model.find({"sensornode": req.params.id}).sort('-created_at').exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');

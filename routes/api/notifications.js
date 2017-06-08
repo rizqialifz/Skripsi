@@ -20,6 +20,7 @@ exports.send = function(req, res) {
 	    }
 	};
 
+
 	//callback style
 	fcm.send(message, function(err, response){
 	    if (err) {
@@ -30,6 +31,7 @@ exports.send = function(req, res) {
 	});
 
 	res.apiResponse({
-			message: 'Successfully send message'
+		error: false,
+		message: 'Successfully send message'
 	});
 }

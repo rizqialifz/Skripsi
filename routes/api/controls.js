@@ -13,7 +13,7 @@ exports.control = function(req, res) {
 
 	var request = require("request");
 	var options = { method: 'POST',
-		url: 'http://192.168.0.109:5555/'+id+'/'+data.status,
+		url: 'http://192.168.43.139:5555/'+id+'/'+data.status,
 		headers: 
 		{ 
 			'postman-token': '16cd996d-f2c5-419f-c3bd-c7ecbdf9bfe4',
@@ -22,17 +22,13 @@ exports.control = function(req, res) {
 			'content-type': 'application/x-www-form-urlencoded' 
 		}
 	};
-
 	request(options, function (error, response, body) {
 		if (error) throw new Error(error);
-
 		console.log(body);
 	});
 
 	res.apiResponse({
-			message: 'Successfully update state'
+		error: false,
+		message: 'Successfully update state'
 	});
-
-
-
 }

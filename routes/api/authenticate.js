@@ -41,7 +41,6 @@ exports.signin = function (req, res) {
 
 	});
 }
-
 // you'll want one for signout too
 exports.signout = function (req, res) {
 

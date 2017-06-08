@@ -10,7 +10,11 @@ Dataset.add({
 	device: { type: Types.Relationship, initial: true, ref: 'Device', index: true },
 	sensornode: { type: Types.Relationship, initial: true, ref: 'SensorNode', index: true },
 	sensortype: { type: Types.Relationship, ref: 'SensorType', many: true },
-	//string: { type: String },
+
+	setPoint: { type: Number },
+	uk: { type: Number },
+	opTime: {type: Number },
+
 	data: {
 		humidity: { type: Number , collapse:true , note: 'Value Humidity Sensor' },
 		temperature: { type: Number , collapse:true, note: 'Value Temperature Sensor' },
@@ -24,6 +28,6 @@ Dataset.add({
 });
 
 Dataset.relationship({ ref: 'SensorNode', refPath: 'datasets' });
-Dataset.defaultColumns = 'device, sensornode, data';
+Dataset.defaultColumns = 'device, sensornode, created_at';
 Dataset.register();
 
