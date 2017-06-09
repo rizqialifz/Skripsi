@@ -18,11 +18,9 @@ exports.list = function(req, res) {
 		
 	});
 }
-/**
- * Get Post by ID
- */
+
 exports.get = function(req, res) {
-	Dataset.model.find({"sensornode": req.params.id}).limit(30).sort('-created_at').exec(function(err, item) {
+	Dataset.model.find({"sensornode": req.params.id}).limit(30).sort('-created_at').populate('sensornode').exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
@@ -36,9 +34,6 @@ exports.get = function(req, res) {
 }
 
 
-/**
- * Create a Post
- */
 exports.create = function(req, res) {
 	
 	var item = new Dataset.model(),
@@ -55,9 +50,6 @@ exports.create = function(req, res) {
 	});
 }
 
-/**
- * Get Post by ID
- */
 exports.update = function(req, res) {
 	Dataset.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -79,9 +71,7 @@ exports.update = function(req, res) {
 	});
 }
 
-/**
- * Delete Post by ID
- */
+
 exports.remove = function(req, res) {
 	Dataset.model.findById(req.params.id).exec(function (err, item) {
 		

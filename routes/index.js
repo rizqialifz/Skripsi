@@ -98,6 +98,7 @@ exports = module.exports = function (app) {
 	app.get('/api/dataset/list', keystone.middleware.api, routes.api.datasets.list);
 	app.all('/api/dataset/create', keystone.middleware.api, routes.api.datasets.create);
 	app.get('/api/dataset/:id', keystone.middleware.api, routes.api.datasets.get);
+	//app.get('/api/datasets/:id', keystone.middleware.api, routes.api.datasets.gets);
 	app.all('/api/dataset/:id/update', keystone.middleware.api, routes.api.datasets.update);
 	app.all('/api/dataset/:id/remove', keystone.middleware.api, routes.api.datasets.remove);
 
