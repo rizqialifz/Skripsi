@@ -12,14 +12,15 @@ import sys
 # In[2]:
 
 lines = sys.stdin.read().splitlines()
-lines = lines[0]
+lines1 = lines[0]
+lines2 = lines[1]
 
 
 # In[ ]:
 
 client = MongoClient()
 collection = client['keystone-demo'].datasets
-data = collection.find({"sensornode": ObjectId(lines)})
+data = collection.find({"sensornode": ObjectId(lines1)})
 
 
 # In[ ]:
@@ -29,20 +30,20 @@ creat = []
 
 data1 = list(data)
 for i in range(len(data1)):
-    dat.append(data1[i]["data"]["temperature"])
+    dat.append(data1[i]["data"][lines2])
     creat.append(data1[i]["created_at"].isoformat())
 
 
 # In[ ]:
 
-df2 = DataFrame({"created_at":creat, "humidity":dat})
+df2 = DataFrame({"created_at":creat, lines2:dat})
 
 
 # In[ ]:
 
 series = df2.set_index("created_at")
 ts = series
-ts["humidity"] = ts["humidity"].astype("float")
+ts[lines2] = ts[lines2].astype("float")
 
 
 # In[ ]:

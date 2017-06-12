@@ -11,6 +11,8 @@ exports.get = function(req, res) {
 	var pyshell = new PythonShell('predictMongo.py');
 	// send parameter post to python script
 	pyshell.send(data.idnode)
+	pyshell.send(data.tipe)
+
 
 	// begin chage data on message string
 	pyshell.on('message', function (message) {
@@ -33,6 +35,7 @@ exports.get = function(req, res) {
 	    //console.log(dict);
 	   	// send response as api
 		res.apiResponse({
+			error: false,
 			prediction: dict
 		});
 
@@ -42,6 +45,10 @@ exports.get = function(req, res) {
 	pyshell.end(function (err) {
 	    if (err){
 	        throw err;
+	        res.apiResponse({
+				error: true,
+				message: "failed to predict data"
+			});
 	    };
 
 	    //console.log('finished predict data');

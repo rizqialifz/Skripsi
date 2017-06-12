@@ -17,6 +17,7 @@ exports.signin = function (req, res) {
 			});
 		}
 
+
 		keystone.session.signin({ email: user.email, password: data.password }, req, res, function(user) {	  
 			res.apiResponse({
 				error: false,
@@ -25,6 +26,7 @@ exports.signin = function (req, res) {
 				date: new Date().getTime(),
 				userId: user.id,
 				username: user.email,
+				token: user.token,
 				apiKey: "SECRET_API_KEY"
 			});
 		  

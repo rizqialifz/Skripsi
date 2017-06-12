@@ -6,12 +6,11 @@ exports.control = function(req, res) {
 
 	console.log(data.idnode);
 	console.log(data.status);
-	SensorNode.model.findById(data.idnode).exec(function(err, item) {
-
-		item.getUpdateHandler(req).process(data, function(err) {
+	//SensorNode.model.findById(data.idnode).exec(function(err, item) {
+	//	item.getUpdateHandler(req).process(data, function(err) {
 			if (data.idnode == "590e00f72476bf2dbca3e394") var id = 14 ;
 			else if (data.idnode == "590e19d1ac49692798cdab4c") var id = 15;
-			else if (data.idnode == "591fb531e576db31a4b6a504") var id = 16;
+			else if (data.idnode == "5930d241e733191d9836fb57") var id = 16;
 			console.log(id);
 
 			var request = require("request");
@@ -25,18 +24,22 @@ exports.control = function(req, res) {
 					'content-type': 'application/x-www-form-urlencoded' 
 				}
 			};
+
+
 			request(options, function (error, response, body) {
 				if (error) throw new Error(error);
 				console.log(body);
 			});
 
+
 			res.apiResponse({
 				error: false,
 				message: 'Successfully update state'
 			});
+			
 				
-		});
-	});
+	//	});
+	//});
 
 
 }
