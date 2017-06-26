@@ -8,6 +8,9 @@ var Device = new keystone.List('Device', {
 Device.add({
 
 	name: { type: String, required: true },
+	webaddr: { type: String },
+	latitude: { type: String },
+	longitude: { type: String },
 	image: { type: Types.CloudinaryImage },
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
 	user: { type: Types.Relationship, initial: true, ref: 'User', index: true },

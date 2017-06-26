@@ -1,3 +1,5 @@
+var redisClient = require('redis').createClient;
+var redis = redisClient(6379, 'localhost');
 const keystone = require('keystone');
 const middleware = require('./middleware');
 const importRoutes = keystone.importer(__dirname);
@@ -111,6 +113,11 @@ exports = module.exports = function (app) {
 	app.all('/api/signin', keystone.middleware.api, routes.api.authenticate.signin);
 	app.all('/api/signout', keystone.middleware.api, routes.api.authenticate.signout);
 
+	//////////////////////////////////// with redis //////////////////////////////////////////////////
+	app.get('/api/devicesCache/:id', keystone.middleware.api, routes.api.devices.getsCached);
+
+
+	/////////////////////////////////// end chache redis /////////////////////////////////////////////
 	// Downloads
 	app.get('/download/users', routes.download.users);
 

@@ -17,7 +17,6 @@ exports.signin = function (req, res) {
 			});
 		}
 
-
 		keystone.session.signin({ email: user.email, password: data.password }, req, res, function(user) {	  
 			res.apiResponse({
 				error: false,
@@ -42,6 +41,7 @@ exports.signin = function (req, res) {
 		});
 
 	});
+
 }
 // you'll want one for signout too
 exports.signout = function (req, res) {

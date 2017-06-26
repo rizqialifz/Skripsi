@@ -1,5 +1,6 @@
 var async = require('async'),
 keystone = require('keystone');
+var PythonShell = require('python-shell');
 
 exports.get = function(req, res) {
 	//get all post body parameter 
@@ -7,12 +8,10 @@ exports.get = function(req, res) {
 	//console.log(data.idnode)
 
 	// Use python shell
-	var PythonShell = require('python-shell');
 	var pyshell = new PythonShell('predictMongo.py');
 	// send parameter post to python script
 	pyshell.send(data.idnode)
 	pyshell.send(data.tipe)
-
 
 	// begin chage data on message string
 	pyshell.on('message', function (message) {
@@ -20,13 +19,13 @@ exports.get = function(req, res) {
 	    // split print in python by ,
 	    var resi = message.split(",");
 	    // pop last data because contain "\r", dont know how to handle
-	    resi.pop();
+	    //resi.pop();
 	    //console.log(resi);
 
 	    // make dictionary to story prediction data
 		var dict = []; 
 
-		for (var i = 0; i < resi.length; i++) {
+		for (var i = 0; i < (resi.length-3); i++) {
 			dict.push({
 				time: "default",
 				senVal: resi[i]
@@ -43,6 +42,7 @@ exports.get = function(req, res) {
 
 	// end the input stream and allow the process to exit
 	pyshell.end(function (err) {
+
 	    if (err){
 	        throw err;
 	        res.apiResponse({
@@ -50,7 +50,6 @@ exports.get = function(req, res) {
 				message: "failed to predict data"
 			});
 	    };
-
 	    //console.log('finished predict data');
 	});
 

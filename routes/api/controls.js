@@ -1,21 +1,21 @@
 keystone = require('keystone');
 var SensorNode = keystone.list('SensorNode');
+var Device = keystone.list('Device');
 
 exports.control = function(req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
-
-	console.log(data.idnode);
-	console.log(data.status);
+	//console.log(data.idnode);
+	//console.log(data.status);
 	//SensorNode.model.findById(data.idnode).exec(function(err, item) {
 	//	item.getUpdateHandler(req).process(data, function(err) {
 			if (data.idnode == "590e00f72476bf2dbca3e394") var id = 14 ;
 			else if (data.idnode == "590e19d1ac49692798cdab4c") var id = 15;
 			else if (data.idnode == "5930d241e733191d9836fb57") var id = 16;
-			console.log(id);
+			//console.log(id);
 
 			var request = require("request");
 			var options = { method: 'POST',
-				url: 'http://192.168.43.139:5555/'+id+'/'+data.status,
+				url: 'http://192.168.31.192:5555/'+id+'/'+data.status,
 				headers: 
 				{ 
 					'postman-token': '16cd996d-f2c5-419f-c3bd-c7ecbdf9bfe4',
@@ -25,12 +25,10 @@ exports.control = function(req, res) {
 				}
 			};
 
-
 			request(options, function (error, response, body) {
 				if (error) throw new Error(error);
 				console.log(body);
 			});
-
 
 			res.apiResponse({
 				error: false,

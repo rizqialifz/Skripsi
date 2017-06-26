@@ -2,10 +2,10 @@ var async = require('async'),
 keystone = require('keystone');
 
 var Device = keystone.list('Device');
+var redisClient = require('redis').createClient;
+var redis = redisClient(6379, 'localhost');
 
-/**
- * List Posts
- */
+
 exports.list = function(req, res) {
 	Device.model.find(function(err, items) {
 		
@@ -19,9 +19,6 @@ exports.list = function(req, res) {
 	});
 }
 
-/**
- * Get Post by ID
- */
 exports.get = function(req, res) {
 	Device.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -35,11 +32,38 @@ exports.get = function(req, res) {
 	});
 }
 
+exports.getsCached = function(req, res) {
+
+	redis.get('device', function (err, reply) {
+        if (err) return res.apiError('database error', err);
+        else if (reply) {
+    		res.apiResponse({
+				error: false,
+				device: JSON.parse(reply)
+			});
+		}
+        else {
+			Device.model.find({"user": req.params.id}).exec(function(err, item) {
+				
+				if (err) return res.apiError('database error', err);
+				if (!item) return res.apiError('not found');
+				
+				res.apiResponse({
+					error: false,
+					device: item
+				});
+				
+			});
+		}
+	});
+}
 exports.gets = function(req, res) {
 	Device.model.find({"user": req.params.id}).exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
+
+		//redis.set("device", JSON.stringify(item));
 		
 		res.apiResponse({
 			error: false,
@@ -48,8 +72,6 @@ exports.gets = function(req, res) {
 		
 	});
 }
-
-
 exports.create = function(req, res) {
 	
 	var item = new Device.model(),
@@ -70,7 +92,7 @@ exports.create = function(req, res) {
 
 
 exports.update = function(req, res) {
-	Devicee.model.findById(req.params.id).exec(function(err, item) {
+	Device.model.findById(req.params.id).exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
