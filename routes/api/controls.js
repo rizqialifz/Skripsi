@@ -25,6 +25,7 @@ exports.control = function(req, res) {
 				}
 			};
 
+
 			request(options, function (error, response, body) {
 				if (error) throw new Error(error);
 				console.log(body);
@@ -38,6 +39,4 @@ exports.control = function(req, res) {
 				
 	//	});
 	//});
-
-
 }

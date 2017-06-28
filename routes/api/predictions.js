@@ -1,6 +1,8 @@
 var async = require('async'),
 keystone = require('keystone');
 var PythonShell = require('python-shell');
+var Dataset = keystone.list('Dataset');
+var timeseries = require("timeseries-analysis");
 
 exports.get = function(req, res) {
 	//get all post body parameter 
@@ -20,7 +22,7 @@ exports.get = function(req, res) {
 	    var resi = message.split(",");
 	    // pop last data because contain "\r", dont know how to handle
 	    //resi.pop();
-	    //console.log(resi);
+	    console.log(resi);
 
 	    // make dictionary to story prediction data
 		var dict = []; 
@@ -53,4 +55,61 @@ exports.get = function(req, res) {
 	    //console.log('finished predict data');
 	});
 
+}
+
+exports.gets = function(req, res) {
+	data = (req.method == 'POST') ? req.body : req.query;
+
+	Dataset.model.find({"sensornode": data.idnode}).limit(30).sort('-created_at').exec(function(err, item) {
+		var dat = []
+		var creat = []
+
+		for (var i=0; i < (item.length); i++){
+		    dat.push(item[i]["data"][data.tipe])
+		    creat.push(item[i]["created_at"])
+		}
+		//console.log(dat);
+		//console.log(creat);
+
+		// var t     = new timeseries.main(timeseries.adapter.fromDB(item, {
+		//     date:   'created_at',     // Name of the property containing the Date (must be compatible with new Date(date) )
+		//     value:  ['data']["humidity"]     // Name of the property containign the value. here we'll use the "close" price.
+		// }));
+		// console.log(t)
+		
+		var t     = new timeseries.main(timeseries.adapter.fromArray(dat));
+		//console.log(t)
+ 
+		// We're going to forecast the 11th datapoint
+		var forecastDatapoint	= dat.length+1;	
+		 
+		// We calculate the AR coefficients of the 10 previous points
+		var coeffs = t.ARMaxEntropy({
+		    data:	t.data.slice(0,dat.length)
+		});
+		 
+		// Output the coefficients to the console
+		console.log(coeffs);
+		 
+		// Now, we calculate the forecasted value of that 11th datapoint using the AR coefficients:
+		var forecast	= 0;	// Init the value at 0.
+		for (var i=0;i<coeffs.length;i++) {	// Loop through the coefficients
+		    forecast -= t.data[10-i][1]*coeffs[i];
+		    // Explanation for that line:
+		    // t.data contains the current dataset, which is in the format [ [date, value], [date,value], ... ]
+		    // For each coefficient, we substract from "forecast" the value of the "N - x" datapoint's value, multiplicated by the coefficient, where N is the last known datapoint value, and x is the coefficient's index.
+		}
+		dict = []
+		dict.push({
+			time: "default",
+			senVal: forecast
+		});
+		console.log("forecast",forecast);
+
+		res.apiResponse({
+			error: false,
+			prediction: dict
+		});
+
+	});
 }
