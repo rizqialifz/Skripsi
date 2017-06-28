@@ -60,7 +60,7 @@ exports.get = function(req, res) {
 exports.gets = function(req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
 
-	Dataset.model.find({"sensornode": data.idnode}).limit(30).sort('-created_at').exec(function(err, item) {
+	Dataset.model.find({"sensornode": data.idnode}).limit(30).exec(function(err, item) {
 		var dat = []
 		var creat = []
 
@@ -82,10 +82,11 @@ exports.gets = function(req, res) {
  
 		// We're going to forecast the 11th datapoint
 		var forecastDatapoint	= dat.length+1;	
+		//console.log(forecastDatapoint)
 		 
 		// We calculate the AR coefficients of the 10 previous points
 		var coeffs = t.ARMaxEntropy({
-		    data:	t.data.slice(0,dat.length)
+		    data:	t.data
 		});
 		 
 		// Output the coefficients to the console
@@ -93,18 +94,25 @@ exports.gets = function(req, res) {
 		 
 		// Now, we calculate the forecasted value of that 11th datapoint using the AR coefficients:
 		var forecast	= 0;	// Init the value at 0.
-		for (var i=0;i<coeffs.length;i++) {	// Loop through the coefficients
-		    forecast -= t.data[10-i][1]*coeffs[i];
-		    // Explanation for that line:
-		    // t.data contains the current dataset, which is in the format [ [date, value], [date,value], ... ]
-		    // For each coefficient, we substract from "forecast" the value of the "N - x" datapoint's value, multiplicated by the coefficient, where N is the last known datapoint value, and x is the coefficient's index.
-		}
 		dict = []
-		dict.push({
-			time: "default",
-			senVal: forecast
-		});
-		console.log("forecast",forecast);
+		for(var j=0; j<5; j++){
+			for (var i=0; i<coeffs.length; i++) {	// Loop through the coefficients
+			
+			    forecast -= t.data[(dat.length-1-j)-i][1]*coeffs[i];
+
+			    // Explanation for that line:
+			    // t.data contains the current dataset, which is in the format [ [date, value], [date,value], ... ]
+			    // For each coefficient, we substract from "forecast" the value of the "N - x" datapoint's value, multiplicated by the coefficient, where N is the last known datapoint value, and x is the coefficient's index.	
+			}
+			dict.push({
+				time: "default",
+				senVal: forecast
+			});
+			forecast = 0;
+		}
+		
+
+		//console.log("forecast",forecast);
 
 		res.apiResponse({
 			error: false,
