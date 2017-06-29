@@ -28,6 +28,7 @@ exports.get = function(req, res) {
 		
 		res.apiResponse({
 			error: false,
+			message: "success get sensornode",
 			sensornode: item
 		});
 		
@@ -44,6 +45,7 @@ exports.gets = function(req, res) {
 
 		res.apiResponse({
 			error: false,
+			message: "success get sensornode",
 			sensornode: item
 		});
 		

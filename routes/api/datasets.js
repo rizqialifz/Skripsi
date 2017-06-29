@@ -48,6 +48,8 @@ exports.create = function(req, res) {
 		if (err) return res.apiError('error', err);
 		
 		res.apiResponse({
+			error: false,
+			message: "success create data",
 			dataset: item
 		});
 		

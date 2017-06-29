@@ -9,13 +9,28 @@ exports.send = function(req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
 	//console.log(data.title);
 	//console.log(data.message);
+	var dict = []
+	dict.push({
+		title: data.title,
+		device: data.device,
+		message: data.message,
+		is_background: false,
+		image: '',
+		timestamp: ''
+
+	});
+
+
 	var message = {
 	    //to: 'dhzyC5HLUVA:APA91bFDqRduJKR52ATJgi83zWbwLZkVM6fgCXMHviRXLggNxbcGdPOMzgrKrypaWauHbjh7hEqjcALy0qp4920eklmmrMpqxOnsxKX5WZunRp0XZ2EQar6J12g4JwgBp5hOOzo0U1WU', // required fill with device token or topics
 	    to: 'dMoTiG7bj9k:APA91bF7Is83LUlDh8LO2H-dxYngRKZFRvCN1YCv2AUWM4jgVwK_CMXpHNvNh68CRYt_ytAWrEAWzx3avebdpi4WMN7hx6pQwB7_2Ps63eRvrgBF-ljGeOR6mlVOl-8Vmxrvt6A8rakT',
 	    collapse_key: 'your_collapse_key', 
+
 	    data: {
-	        your_custom_data_key: 'your_custom_data_value'
+	        data: dict,
+
 	    },
+
 	    notification: {
 	        title: data.title,
 	        body: data.message

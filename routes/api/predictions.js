@@ -56,11 +56,10 @@ exports.get = function(req, res) {
 	});
 
 }
-
 exports.gets = function(req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
 
-	Dataset.model.find({"sensornode": data.idnode}).limit(30).exec(function(err, item) {
+	Dataset.model.find({"sensornode": data.idnode}).exec(function(err, item) {
 		var dat = []
 		var creat = []
 
@@ -90,12 +89,12 @@ exports.gets = function(req, res) {
 		});
 		 
 		// Output the coefficients to the console
-		console.log(coeffs);
+		//console.log(coeffs);
 		 
 		// Now, we calculate the forecasted value of that 11th datapoint using the AR coefficients:
 		var forecast	= 0;	// Init the value at 0.
-		dict = []
-		for(var j=0; j<5; j++){
+		var dict = []
+		for(var j=0; j<7; j++){
 			for (var i=0; i<coeffs.length; i++) {	// Loop through the coefficients
 			
 			    forecast -= t.data[(dat.length-1-j)-i][1]*coeffs[i];

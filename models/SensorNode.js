@@ -18,6 +18,7 @@ SensorNode.add({
 	setPoint: { type: Number },
 	opTime: { type: Number },
 	status: { type: Number },
+	notification: {type: Number},
 
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
 });
