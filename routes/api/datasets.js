@@ -2,8 +2,8 @@ var async = require('async'),
 keystone = require('keystone');
 
 var Dataset = keystone.list('Dataset');
-var redisClient = require('redis').createClient;
-var redis = redisClient(6379, 'localhost');
+//var redisClient = require('redis').createClient;
+//var redis = redisClient(6379, 'localhost');
 
 /**
  * List Posts
@@ -27,7 +27,7 @@ exports.get = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 
-		redis.set("dataset", JSON.stringify(item));
+		//redis.set("dataset", JSON.stringify(item));
 		
 		res.apiResponse({
 			error: false,

@@ -1,8 +1,9 @@
-var redisClient = require('redis').createClient;
-var redis = redisClient(6379, 'localhost');
+//var redisClient = require('redis').createClient;
+//var redis = redisClient(6379, 'localhost');
 const keystone = require('keystone');
 const middleware = require('./middleware');
 const importRoutes = keystone.importer(__dirname);
+
 
 keystone.pre('routes', function (req, res, next) {
 	res.locals.navLinks = [
@@ -33,12 +34,14 @@ var routes = {
 	api: importRoutes('./api')
 };
 
+var User = keystone.list('User');
 function checkAPIKey(req, res, next) {
   // you would have the key in an env variable or load it from
   // your database or something.
 
   res.header('Access-Control-Allow-Headers', keystone.get('api allow headers') || 'Content-Type, Authorization');
   var token = req.headers['x-snow-token']
+
   if (token === "SECRET_API_KEY") return next();
   	return res.status(403).json({ 
 
@@ -47,6 +50,25 @@ function checkAPIKey(req, res, next) {
   		
   	});
 }
+
+function checkAPI(req, res, next){
+	var apiKey= req.headers['authorization']
+	User.model.findOne({ "token": apiKey }).exec(function(err, user) {
+		if (!user){
+			return res.status(403).json({ 
+		  		'error': 'true',
+		  		'message': 'no access'
+		  		
+		  	});
+		}
+		else{
+			return next();
+		}
+
+	});
+}
+
+
 
 exports = module.exports = function (app) {
 
@@ -66,7 +88,14 @@ exports = module.exports = function (app) {
 	app.all('/sensornode/:device', routes.views.sensornode);
 	app.all('/data/:sensornode', routes.views.data);
 
-	app.all('/api*', checkAPIKey);
+	//app.all('/api*', checkAPIKey);
+	app.all('/api/device*', checkAPI);
+	app.all('/api/sensornode*', checkAPI);
+	app.all('/api/devices*', checkAPI);
+	app.all('/api/sensornodes*', checkAPI);
+	app.all('/api/dataset*', checkAPI);
+
+
 	app.get('/api/post/list', keystone.middleware.api, routes.api.posts.list);
 	app.all('/api/post/create', keystone.middleware.api, routes.api.posts.create);
 	app.get('/api/post/:id', keystone.middleware.api, routes.api.posts.get);
@@ -112,6 +141,7 @@ exports = module.exports = function (app) {
 
 
 	app.all('/api/signin', keystone.middleware.api, routes.api.authenticate.signin);
+	app.all('/api/signup', keystone.middleware.api, routes.api.authenticate.signup);
 	app.all('/api/signout', keystone.middleware.api, routes.api.authenticate.signout);
 
 	//////////////////////////////////// with redis //////////////////////////////////////////////////

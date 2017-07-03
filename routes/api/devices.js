@@ -1,11 +1,16 @@
 var async = require('async'),
 keystone = require('keystone');
-
+var User = keystone.list('User');
 var Device = keystone.list('Device');
-var redisClient = require('redis').createClient;
-var redis = redisClient(6379, 'localhost');
+//var redisClient = require('redis').createClient;
+//var redis = redisClient(6379, 'localhost');
+
 
 exports.list = function(req, res) {
+	var tokenn = req.headers;
+	console.log(tokenn);
+
+
 	Device.model.find(function(err, items) {
 		
 		if (err) return res.apiError('database error', err);
@@ -16,8 +21,9 @@ exports.list = function(req, res) {
 		});
 		
 	});
-}
 
+
+}
 exports.get = function(req, res) {
 	Device.model.findById(req.params.id).exec(function(err, item) {
 		

@@ -1,6 +1,7 @@
 var async = require('async'),
 keystone = require('keystone');
 var User = keystone.list('User');
+var crypto = require('crypto');
 
 exports.signin = function (req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
@@ -42,6 +43,28 @@ exports.signin = function (req, res) {
 
 	});
 
+}
+
+exports.signup = function(req, res) {
+	
+	var item = new User.model(),
+		data = (req.method == 'POST') ? req.body : req.query;
+
+	var id = crypto.randomBytes(32).toString('hex');
+	console.log(data);
+	console.log(id);
+	data.token = id;
+	item.getUpdateHandler(req).process(data, function(err) {
+		
+		if (err) return res.apiError('error', err);
+		
+		res.apiResponse({
+			error: false,
+			message: "success create User",
+			user: item
+		});
+		
+	});
 }
 // you'll want one for signout too
 exports.signout = function (req, res) {

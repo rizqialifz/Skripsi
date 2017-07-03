@@ -2,8 +2,8 @@ var async = require('async'),
 keystone = require('keystone');
 
 var SensorNode = keystone.list('SensorNode');
-var redisClient = require('redis').createClient;
-var redis = redisClient(6379, 'localhost');
+//var redisClient = require('redis').createClient;
+//var redis = redisClient(6379, 'localhost');
 
 exports.list = function(req, res) {
 	SensorNode.model.find(function(err, items) {
@@ -24,7 +24,7 @@ exports.get = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 
-		redis.set("nodebydevice", JSON.stringify(item));
+		//redis.set("nodebydevice", JSON.stringify(item));
 		
 		res.apiResponse({
 			error: false,
@@ -41,7 +41,7 @@ exports.gets = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 
-		redis.set("nodebyid", JSON.stringify(item));
+		//redis.set("nodebyid", JSON.stringify(item));
 
 		res.apiResponse({
 			error: false,
