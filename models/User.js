@@ -10,7 +10,7 @@ User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, index: true, unique: true },
 	phone: { type: String, width: 'short' },
-	token: { type: String },
+	apiKey: { type: String },
 	fcmregid: { type : String },
 	photo: { type: Types.CloudinaryImage, collapse: true },
 	password: { type: Types.Password, initial: true, required: false },

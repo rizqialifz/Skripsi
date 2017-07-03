@@ -53,7 +53,7 @@ function checkAPIKey(req, res, next) {
 
 function checkAPI(req, res, next){
 	var apiKey= req.headers['authorization']
-	User.model.findOne({ "token": apiKey }).exec(function(err, user) {
+	User.model.findOne({ "apiKey": apiKey }).exec(function(err, user) {
 		if (!user){
 			return res.status(403).json({ 
 		  		'error': 'true',

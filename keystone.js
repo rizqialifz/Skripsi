@@ -1,11 +1,11 @@
 var keystone = require('keystone');
 
 keystone.init({
-
 	'name': 'Kom IOT',
 	'brand': 'Panel',
 
-	'favicon': 'public/logoipb.ico',
+	'favicon': 'public/settings.png',
+	
 	'less': 'public',
 	'static': 'public',
 

@@ -17,8 +17,10 @@ SensorNode.add({
 	// define all needed settings data
 	setPoint: { type: Number },
 	opTime: { type: Number },
+	intvData: { type: Number },
 	status: { type: Number },
 	notification: {type: Number},
+	// end settings //////////////////
 
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
 });

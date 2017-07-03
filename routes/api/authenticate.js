@@ -2,6 +2,11 @@ var async = require('async'),
 keystone = require('keystone');
 var User = keystone.list('User');
 var crypto = require('crypto');
+var jwt    = require('jsonwebtoken');
+var express = require('express');
+var app = express();
+
+app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 
 exports.signin = function (req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
@@ -18,6 +23,8 @@ exports.signin = function (req, res) {
 			});
 		}
 
+
+		var token = jwt.sign({ foo: 'bar' }, app.get('jwtTokenSecret'));
 		keystone.session.signin({ email: user.email, password: data.password }, req, res, function(user) {	  
 			res.apiResponse({
 				error: false,
@@ -26,8 +33,8 @@ exports.signin = function (req, res) {
 				date: new Date().getTime(),
 				userId: user.id,
 				username: user.email,
-				token: user.token,
-				apiKey: "SECRET_API_KEY"
+				token: token,
+				apiKey: user.apiKey
 			});
 		  
 		}, function(err) {
@@ -51,8 +58,8 @@ exports.signup = function(req, res) {
 		data = (req.method == 'POST') ? req.body : req.query;
 
 	var id = crypto.randomBytes(32).toString('hex');
-	console.log(data);
-	console.log(id);
+	//console.log(data);
+	//console.log(id);
 	data.token = id;
 	item.getUpdateHandler(req).process(data, function(err) {
 		
