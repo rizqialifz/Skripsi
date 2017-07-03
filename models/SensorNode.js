@@ -18,8 +18,8 @@ SensorNode.add({
 	setPoint: { type: Number },
 	opTime: { type: Number },
 	intvData: { type: Number },
-	status: { type: Number },
-	notification: {type: Number},
+	status: { type: Number, default: "0"},
+	notification: {type: Number, default: "0"},
 	// end settings //////////////////
 
 	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },

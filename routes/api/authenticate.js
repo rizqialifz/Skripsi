@@ -24,7 +24,7 @@ exports.signin = function (req, res) {
 		}
 
 
-		var token = jwt.sign({ foo: 'bar' }, app.get('jwtTokenSecret'));
+		//var token = jwt.sign({ foo: 'bar' }, app.get('jwtTokenSecret'));
 		keystone.session.signin({ email: user.email, password: data.password }, req, res, function(user) {	  
 			res.apiResponse({
 				error: false,
@@ -33,7 +33,7 @@ exports.signin = function (req, res) {
 				date: new Date().getTime(),
 				userId: user.id,
 				username: user.email,
-				token: token,
+				// token: token,
 				apiKey: user.apiKey
 			});
 		  
@@ -60,7 +60,7 @@ exports.signup = function(req, res) {
 	var id = crypto.randomBytes(32).toString('hex');
 	//console.log(data);
 	//console.log(id);
-	data.token = id;
+	data.apiKey = id;
 	item.getUpdateHandler(req).process(data, function(err) {
 		
 		if (err) return res.apiError('error', err);
