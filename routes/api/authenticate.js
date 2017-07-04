@@ -57,7 +57,7 @@ exports.signup = function(req, res) {
 	var item = new User.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
 
-	var id = crypto.randomBytes(32).toString('hex');
+	var id = crypto.randomBytes(16).toString('hex');
 	//console.log(data);
 	//console.log(id);
 	data.apiKey = id;
@@ -73,6 +73,7 @@ exports.signup = function(req, res) {
 		
 	});
 }
+
 // you'll want one for signout too
 exports.signout = function (req, res) {
 

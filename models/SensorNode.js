@@ -13,6 +13,7 @@ SensorNode.add({
 	name: { type: String, required: true },
 	image: { type: Types.CloudinaryImage },
 	miconType: { type: Types.Select, options: 'Arduino Uno, Arduino Leonardo, Arduino Mega'},
+	sensortype: { type: Types.Relationship, ref: 'SensorType', many: true },
 
 	// define all needed settings data
 	setPoint: { type: Number },

@@ -5,8 +5,11 @@ block content
 		h1 Data
 
 	.row
-		- var datu = datasets[0].sensortype.length
-		- for (var cc = 1; cc <= datu; cc++)
+		- var datu = datasets[0].data.toJSON()
+		- var dat = Object.keys(datu).length
+		
+
+		- for (var cc = 1; cc <= dat; cc++)
 					//- h4= cc
 					.col-sm-6
 						.box.box-solid
