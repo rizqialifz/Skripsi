@@ -5,9 +5,7 @@ var Dataset = keystone.list('Dataset');
 //var redisClient = require('redis').createClient;
 //var redis = redisClient(6379, 'localhost');
 
-/**
- * List Posts
- */
+
 exports.list = function(req, res) {
 	Dataset.model.find(function(err, items) {
 		
@@ -22,7 +20,13 @@ exports.list = function(req, res) {
 }
 
 exports.get = function(req, res) {
-	Dataset.model.find({"sensornode": req.params.id}).limit(30).sort('-created_at').populate('sensornode').populate('sensortype').exec(function(err, item) {
+	Dataset.model
+		.find({"sensornode": req.params.id})
+		.limit(30)
+		.sort('-created_at')
+		.populate('sensornode')
+		.populate('sensortype')
+		.exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
