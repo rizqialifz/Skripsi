@@ -68,8 +68,6 @@ function checkAPI(req, res, next){
 	});
 }
 
-
-
 exports = module.exports = function (app) {
 
 	// Views
@@ -143,6 +141,7 @@ exports = module.exports = function (app) {
 	app.all('/api/signin', keystone.middleware.api, routes.api.authenticate.signin);
 	app.all('/api/signup', keystone.middleware.api, routes.api.authenticate.signup);
 	app.all('/api/signout', keystone.middleware.api, routes.api.authenticate.signout);
+	app.all('/api/user/:id/update', keystone.middleware.api, routes.api.authenticate.update);
 
 	//////////////////////////////////// with redis //////////////////////////////////////////////////
 	app.get('/api/devicesCache/:id', keystone.middleware.api, routes.api.devices.getsCached);
