@@ -5,7 +5,6 @@ var Device = keystone.list('Device');
 //var redisClient = require('redis').createClient;
 //var redis = redisClient(6379, 'localhost');
 
-
 exports.list = function(req, res) {
 	var tokenn = req.headers;
 	console.log(tokenn);
@@ -22,7 +21,6 @@ exports.list = function(req, res) {
 		
 	});
 
-
 }
 exports.get = function(req, res) {
 	Device.model.findById(req.params.id).exec(function(err, item) {
@@ -36,7 +34,6 @@ exports.get = function(req, res) {
 		
 	});
 }
-
 exports.getsCached = function(req, res) {
 
 	redis.get('device', function (err, reply) {

@@ -32,7 +32,9 @@ exports.signin = function (req, res) {
 				session: true,
 				date: new Date().getTime(),
 				userId: user.id,
-				username: user.email,
+				username: user.name,
+				email: user.email,
+				phone: user.phone,
 				// token: token,
 				apiKey: user.apiKey
 			});

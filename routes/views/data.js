@@ -32,6 +32,8 @@ exports = module.exports = function (req, res) {
 
 		Dataset.model.find()
 			.where('sensornode', locals.sensornode)
+			.limit(10)
+			.sort('-created_at')
 			.exec(function (err, datasets) {
 				if (err) return res.err(err);
 				if (!datasets) return res.notfound('Sensor node not found');
