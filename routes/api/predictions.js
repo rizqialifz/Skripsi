@@ -84,10 +84,10 @@ exports.gets = function(req, res) {
 		    date:   'value',     // Name of the property containing the Date (must be compatible with new Date(date) )
 		    value:  'key'     // Name of the property containign the value. here we'll use the "close" price.
 		}));
-		console.log(t)
-		console.log(lastdate)
+		// console.log(t)
+		// console.log(lastdate)
 		var resultDate = moment(lastdate).add(30, 'seconds')
-		console.log(resultDate.toDate())
+		// console.log(resultDate.toDate())
 		//var t     = new timeseries.main(timeseries.adapter.fromArray(dat));
 		//console.log(t)
  
@@ -101,7 +101,7 @@ exports.gets = function(req, res) {
 		});
 		 
 		//Output the coefficients to the console
-		console.log(coeffs);
+		// console.log(coeffs);
 		 
 		// Now, we calculate the forecasted value of that 11th datapoint using the AR coefficients:
 		var forecast	= 0;	// Init the value at 0.

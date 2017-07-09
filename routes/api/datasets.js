@@ -24,7 +24,13 @@ exports.get = function(req, res) {
 		.find({"sensornode": req.params.id})
 		.limit(30)
 		.sort('-created_at')
-		.populate('sensornode')
+		.populate({
+			path: 'sensornode',
+			populate:{
+				path: 'sensortype'
+			}
+
+		})
 		.populate('sensortype')
 		.exec(function(err, item) {
 		
