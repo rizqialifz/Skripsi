@@ -9,7 +9,7 @@ Dataset.add({
 
 	device: { type: Types.Relationship, initial: true, ref: 'Device', index: true },
 	sensornode: { type: Types.Relationship, initial: true, ref: 'SensorNode', index: true },
-	sensortype: { type: Types.Relationship, ref: 'SensorType', many: true },
+	//sensortype: { type: Types.Relationship, ref: 'SensorType', many: true },
 
 	setPoint: { type: Number },
 	uk: { type: Number },

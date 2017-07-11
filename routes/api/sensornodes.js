@@ -34,7 +34,6 @@ exports.get = function(req, res) {
 		
 	});
 }
-
 exports.gets = function(req, res) {
 	SensorNode.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -42,7 +41,6 @@ exports.gets = function(req, res) {
 		if (!item) return res.apiError('not found');
 
 		//redis.set("nodebyid", JSON.stringify(item));
-
 		res.apiResponse({
 			error: false,
 			message: "success get sensornode",
@@ -112,4 +110,30 @@ exports.remove = function(req, res) {
 		});
 		
 	});
+}
+
+exports.removelast = function(req, res) {
+	SensorNode.model.findOne().sort("-created_at").limit(1).exec(function (err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+
+		item.remove(function (err) {
+			if (err) return res.apiError('database error', err);
+			
+			return res.apiResponse({
+				error: false,
+				message: "success remove "+item._id,
+				success: true
+			});
+		});
+		// res.apiResponse({
+		// 	error: false,
+		// 	message: "success create data",
+		// 	dataset: item
+		// });
+		
+	});
+
+
 }

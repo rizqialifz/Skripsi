@@ -9,7 +9,6 @@ exports.get = function(req, res) {
 	//get all post body parameter 
 	data = (req.method == 'POST') ? req.body : req.query;
 	//console.log(data.idnode)
-
 	// Use python shell
 	var pyshell = new PythonShell('predictMongo.py');
 	// send parameter post to python script

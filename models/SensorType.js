@@ -8,6 +8,7 @@ var SensorType = new keystone.List('SensorType', {
 
 SensorType.add({
 	name: { type: String, required: true },
+	dataKey: { type: String },
 	upper: { type: String },
 	lower: { type: String },
 });

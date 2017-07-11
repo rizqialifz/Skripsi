@@ -31,7 +31,7 @@ exports.get = function(req, res) {
 			}
 
 		})
-		.populate('sensortype')
+		//.populate('sensortype')
 		.exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
@@ -94,15 +94,48 @@ exports.remove = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 		
+		// item.remove(function (err) {
+		// 	if (err) return res.apiError('database error', err);
+			
+		// 	return res.apiResponse({
+		// 		error: false,
+		// 		message: "success remove",
+		// 		success: true
+		// 	});
+		// });
+		res.apiResponse({
+			error: false,
+			message: "success create data",
+			dataset: item
+		});
+		
+	});
+}
+
+
+
+exports.removelast = function(req, res) {
+	Dataset.model.findOne().sort("-created_at").limit(1).exec(function (err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+
 		item.remove(function (err) {
 			if (err) return res.apiError('database error', err);
 			
 			return res.apiResponse({
 				error: false,
-				message: "success remove",
+				message: "success remove "+item._id,
 				success: true
 			});
 		});
+		// res.apiResponse({
+		// 	error: false,
+		// 	message: "success create data",
+		// 	dataset: item
+		// });
 		
 	});
+
+
 }

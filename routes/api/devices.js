@@ -75,11 +75,13 @@ exports.gets = function(req, res) {
 		
 	});
 }
+
 exports.create = function(req, res) {
 	
 	var item = new Device.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
-	
+	//console.log(data)
+
 	item.getUpdateHandler(req).process(data, function(err) {
 		
 		if (err) return res.apiError('error', err);
@@ -134,4 +136,30 @@ exports.remove = function(req, res) {
 		});
 		
 	});
+}
+
+exports.removelast = function(req, res) {
+	Device.model.findOne().sort("-created_at").limit(1).exec(function (err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+
+		item.remove(function (err) {
+			if (err) return res.apiError('database error', err);
+			
+			return res.apiResponse({
+				error: false,
+				message: "success remove "+item._id,
+				success: true
+			});
+		});
+		// res.apiResponse({
+		// 	error: false,
+		// 	message: "success create data",
+		// 	dataset: item
+		// });
+		
+	});
+
+
 }

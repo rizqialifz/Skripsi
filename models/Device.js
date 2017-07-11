@@ -17,7 +17,6 @@ Device.add({
 	
 });
 
-
 Device.relationship({ path: 'sensornodes', ref: 'SensorNode', refPath: 'device' });
 Device.defaultColumns = 'name, image, created_at, user';
 Device.register();

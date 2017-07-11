@@ -20,3 +20,4 @@ node_modules
 ACCOUNTS
 
 .env
+/nbproject/private/

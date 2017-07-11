@@ -3,7 +3,10 @@ mixin sensornode(sensornode)
 		.media-left
 			a(href='/data/' + sensornode.id)
 
-				img(src="http://placehold.it/120x120").media-object
+				if sensornode.image.exists
+					img(src=sensornode._.image.fit(120,120)).media-object
+				else
+					img(src="logoipb.ico").media-object
 		.media-body
 
 			.small-box.bg-purple

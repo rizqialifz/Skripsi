@@ -7,7 +7,6 @@ var serverKey = 'AIzaSyD2dUly4Ei8E_yqhf_6MfcN67iAT8ugnJM';
 var fcm = new FCM(serverKey);
 
 exports.send = function(req, res) {
-	
 	data = (req.method == 'POST') ? req.body : req.query;
 	//console.log(data.title);
 	//console.log(data.message);
