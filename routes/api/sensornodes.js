@@ -18,6 +18,7 @@ exports.list = function(req, res) {
 	});
 }
 
+//get node by id device
 exports.get = function(req, res) {
 	SensorNode.model.find({"device": req.params.id}).exec(function(err, item) {
 		
@@ -34,8 +35,9 @@ exports.get = function(req, res) {
 		
 	});
 }
+//get node by id node
 exports.gets = function(req, res) {
-	SensorNode.model.findById(req.params.id).exec(function(err, item) {
+	SensorNode.model.findById(req.params.id).populate('sensortype').exec(function(err, item) {
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
@@ -50,12 +52,11 @@ exports.gets = function(req, res) {
 	});
 }
 
-
 exports.create = function(req, res) {
 	
 	var item = new SensorNode.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
-	
+	console.log(data);
 	item.getUpdateHandler(req).process(data, function(err) {
 		
 		if (err) return res.apiError('error', err);

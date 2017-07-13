@@ -136,6 +136,9 @@ exports = module.exports = function (app) {
 	app.all('/api/dataset/removelast', keystone.middleware.api, routes.api.datasets.removelast);
 
 
+	app.get('/api/sensortype/list', keystone.middleware.api, routes.api.sensortypes.list);
+
+
 	app.all('/api/notification/send', keystone.middleware.api, routes.api.notifications.send);
 	app.all('/api/prediction/get', keystone.middleware.api, routes.api.predictions.get);
 	app.all('/api/prediction/gets', keystone.middleware.api, routes.api.predictions.gets);
