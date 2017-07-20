@@ -122,6 +122,7 @@ exports = module.exports = function (app) {
 	app.get('/api/sensornode/:id', keystone.middleware.api, routes.api.sensornodes.get);
 	app.get('/api/sensornodes/:id', keystone.middleware.api, routes.api.sensornodes.gets);
 	app.all('/api/sensornode/:id/update', keystone.middleware.api, routes.api.sensornodes.update);
+	app.all('/api/sensornode/:id/updates', keystone.middleware.api, routes.api.sensornodes.updates);
 	app.all('/api/sensornode/:id/remove', keystone.middleware.api, routes.api.sensornodes.remove);
 	app.all('/api/sensornode/removelast', keystone.middleware.api, routes.api.sensornodes.removelast);
 

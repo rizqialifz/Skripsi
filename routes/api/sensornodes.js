@@ -35,6 +35,7 @@ exports.get = function(req, res) {
 		
 	});
 }
+
 //get node by id node
 exports.gets = function(req, res) {
 	SensorNode.model.findById(req.params.id).populate('sensortype').exec(function(err, item) {
@@ -90,6 +91,23 @@ exports.update = function(req, res) {
 			
 		});
 		
+	});
+}
+
+exports.updates = function(req, res) {
+	SensorNode.model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},function(err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+		
+		var data = (req.method == 'PUT') ? req.body : req.query;
+		
+		res.apiResponse({
+			error: false,
+			message: "success update",
+			sensornode: item
+		});
+			
 	});
 }
 

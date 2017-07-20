@@ -18,7 +18,6 @@ exports.send = function(req, res) {
 			SensorNode.model.findById( idnode.substr(0,idnode.indexOf(' ')) ).exec(function(err, node) {
 			console.log(node.name);
 
-
 				var dict = []
 				dict.push({
 					title: data.title,
@@ -27,7 +26,6 @@ exports.send = function(req, res) {
 					is_background: false,
 					image: '',
 					timestamp: ''
-
 				});
 				//console.log(device.name)
 				var message = {

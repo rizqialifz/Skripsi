@@ -8,7 +8,7 @@ var moment = require('moment');
 exports.get = function(req, res) {
 	//get all post body parameter 
 	data = (req.method == 'POST') ? req.body : req.query;
-	//console.log(data.idnode)
+	console.log(data)
 	// Use python shell
 	var pyshell = new PythonShell('predictMongo.py');
 	// send parameter post to python script
@@ -42,6 +42,7 @@ exports.get = function(req, res) {
 
 	});
 
+
 	// end the input stream and allow the process to exit
 	pyshell.end(function (err) {
 
@@ -55,9 +56,10 @@ exports.get = function(req, res) {
 	    //console.log('finished predict data');
 	});
 }
+
 exports.gets = function(req, res) {
 	data = (req.method == 'POST') ? req.body : req.query;
-
+	console.log(data)
 	Dataset.model.find({"sensornode": data.idnode}).exec(function(err, item) {
 		var dat = []
 		var creat = []
@@ -124,7 +126,6 @@ exports.gets = function(req, res) {
 			forecast = 0;
 		}
 		
-
 		// //console.log("forecast",forecast);
 
 		res.apiResponse({
@@ -137,4 +138,7 @@ exports.gets = function(req, res) {
 			// });
 
 	});
+	
+
+	
 }

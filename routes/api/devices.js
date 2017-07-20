@@ -102,13 +102,15 @@ exports.update = function(req, res) {
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 		
-		var data = (req.method == 'POST') ? req.body : req.query;
+		var data = (req.method == 'PUT') ? req.body : req.query;
 		
 		item.getUpdateHandler(req).process(data, function(err) {
 			
 			if (err) return res.apiError('create error', err);
 			
 			res.apiResponse({
+				error: false,
+				message: "success update",
 				device: item
 			});
 			
