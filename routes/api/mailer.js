@@ -17,7 +17,7 @@ exports.send = function(req, res) {
       from: 'akiyar18@gmail.com',
       to: data.email,
       subject: 'Push your data',
-      text: 'Deviceid: '+ data.deviceid + '\n' +'Nodeid: ' + data.nodeid + '\n' + 'Authorization: ' + data.auth
+      text: 'Deviceid: '+ data.deviceid + '\n' +'Nodeid: ' + data.nodeid + '\n' + 'Authorization: ' + data.auth + '\n' + 'keyData: ' + data.keyData
     }; 
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -27,6 +27,7 @@ exports.send = function(req, res) {
         console.log('Email sent: ' + info.response);
       }
     });
+
 
     res.apiResponse({
       error: false,
