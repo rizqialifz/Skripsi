@@ -95,7 +95,6 @@ exports.create = function(req, res) {
 	});
 }
 
-
 exports.update = function(req, res) {
 	Device.model.findById(req.params.id).exec(function(err, item) {
 		
@@ -116,6 +115,23 @@ exports.update = function(req, res) {
 			
 		});
 		
+	});
+}
+
+exports.updates = function(req, res) {
+	Device.model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},function(err, item) {
+		
+		if (err) return res.apiError('database error', err);
+		if (!item) return res.apiError('not found');
+		
+		var data = (req.method == 'PUT') ? req.body : req.query;
+		
+		res.apiResponse({
+			error: false,
+			message: "success update",
+			sensornode: item
+		});
+			
 	});
 }
 

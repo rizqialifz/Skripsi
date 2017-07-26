@@ -18,6 +18,7 @@ exports.list = function(req, res) {
 	});
 }
 
+
 //get node by id device
 exports.get = function(req, res) {
 	SensorNode.model.find({"device": req.params.id}).exec(function(err, item) {
@@ -93,6 +94,7 @@ exports.update = function(req, res) {
 		
 	});
 }
+
 
 exports.updates = function(req, res) {
 	SensorNode.model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},function(err, item) {

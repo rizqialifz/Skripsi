@@ -14,7 +14,6 @@ Dataset.add({
 	setPoint: { type: Number },
 	uk: { type: Number },
 	opTime: {type: Number },
-	
 	data: {
 
 		humidity: { type: Number , collapse:true , note: 'Value Humidity Sensor' },
@@ -24,7 +23,7 @@ Dataset.add({
 		waterlevel: { type: Number , collapse:true, note: 'Value waterlevel ultrasonic' },
 		third: { type: String, dependsOn: { sensortype: 'Humidity (DHT 22)' } },
 	},
-	created_at: { type: Types.Date, default: Date.now, noedit: true, index: true },
+	created_at: { type: Types.Datetime, default: Date.now, utc: false, noedit: true, index: true },
 	
 });
 

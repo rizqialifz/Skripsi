@@ -113,8 +113,10 @@ exports = module.exports = function (app) {
 	app.get('/api/device/:id', keystone.middleware.api, routes.api.devices.get);
 	app.get('/api/devices/:id', keystone.middleware.api, routes.api.devices.gets);
 	app.all('/api/device/:id/update', keystone.middleware.api, routes.api.devices.update);
+	app.all('/api/device/:id/updates', keystone.middleware.api, routes.api.devices.updates);
 	app.all('/api/device/:id/remove', keystone.middleware.api, routes.api.devices.remove);
 	app.all('/api/device/removelast', keystone.middleware.api, routes.api.devices.removelast);
+
 
 
 	app.get('/api/sensornode/list', keystone.middleware.api, routes.api.sensornodes.list);
@@ -155,5 +157,8 @@ exports = module.exports = function (app) {
 	/////////////////////////////////// end chache redis /////////////////////////////////////////////
 	// Downloads
 	app.get('/download/users', routes.download.users);
+	app.get('/download/data', routes.download.data);
+
+	app.all('/api/mailer/send', keystone.middleware.api, routes.api.mailer.send);
 
 }
