@@ -1,0 +1,25 @@
+mixin device(device)
+	article(data-ks-editable=editable(user, { list: 'Device', id: device.id })).media
+		.media-left
+			a(href='/sensornode/' + device.key)
+				if device.image.exists
+					img(src=device._.image.fit(120,120)).media-object
+				else
+					img(src="logoipb.ico").media-object
+					
+		.media-body
+
+			.small-box.bg-light-blue
+				.inner
+					h4
+						= device.name
+						sup(style='font-size: 20px')
+					p
+						= device._.created_at.format('MMMM Do, YYYY')
+				.icon
+					i.ion.ion-stats-bars
+
+				a.small-box-footer(href='/sensornode/' + device.key)
+					| More info
+					i.fa.fa-arrow-circle-right
+
